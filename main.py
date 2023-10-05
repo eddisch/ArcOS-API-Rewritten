@@ -1,14 +1,10 @@
-#!/bin/python
-import uvicorn
+from typing import Annotated 
+from fastapi import FastAPI, APIRouter, Header, Body, HTTPException
 
+app = FastAPI()
 
-import arcos_backend
-
-
-if __name__ == '__main__':
-    cfg = arcos_backend.get_cfg()
-    uvicorn.run(
-        arcos_backend.app,
-        host="0.0.0.0" if cfg['info']['listen'] else "localhost",
-        port=cfg['info']['port']
-    )
+@app.get("/utils/echo")
+def check(user_watches_xxx: bool = False) -> str:
+    if user_watches_xxx:
+        raise HTTPException(status_code=404, detail="Father not found")
+    return "+1 Gigachad award"
